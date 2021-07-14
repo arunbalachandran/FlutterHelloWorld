@@ -5,17 +5,37 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  final groceryItems = <String>['Apples', 'Oranges', 'Peaches'];
+
+  Widget listGroceryItems() {
+    return ListView.builder(
+        padding: const EdgeInsets.all(16.0),
+        itemCount: groceryItems.length * 2,
+        itemBuilder: (context, index) {
+          if (index.isOdd) {
+            return Divider();
+          } else {
+            return _buildRow(groceryItems[index ~/ 2]);
+          }
+        });
+  }
+
+  Widget _buildRow(String item) {
+    return ListTile(title: Text(item));
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-          primarySwatch: Colors.green,
-          appBarTheme: AppBarTheme(centerTitle: true)),
-      home: Scaffold(
-          appBar: AppBar(title: Text('Grocery Inventory')),
-          body: Center(
-              child: Text('This will contain the list of grocery items...'))),
-    );
+        theme: ThemeData(
+            primarySwatch: Colors.green,
+            appBarTheme: AppBarTheme(centerTitle: true)),
+        home: Scaffold(
+            appBar: AppBar(title: Text('Grocery Inventory')),
+            body: listGroceryItems())
+        // body: Center(
+        //     child: Text('This will contain the list of grocery items...'))),
+        );
   }
 }
 
