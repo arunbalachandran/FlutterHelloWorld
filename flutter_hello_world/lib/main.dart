@@ -5,14 +5,32 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final groceryItems = <String>['Apples', 'Oranges', 'Peaches'];
+  final groceryItems = <String>[
+    'Apples',
+    'Oranges',
+    'Peaches',
+    'Coriander',
+    'Grapes',
+    'Lemons',
+    'Watermelon',
+    'Chocolate',
+    'Tamarind',
+    'Tomato',
+    'Cabbage',
+    'Cauliflower'
+  ];
 
   Widget listGroceryItems() {
     return ListView.builder(
         padding: const EdgeInsets.all(16.0),
         itemCount: groceryItems.length * 2,
+        shrinkWrap: true, // fill only as much space as needed
+        // physics: ClampingScrollPhysics(),
         itemBuilder: (context, index) {
-          if (index.isOdd) {
+          if (index == 0) {
+            return ElevatedButton(
+                onPressed: null, child: Text('Add grocery item'));
+          } else if (index.isOdd) {
             return Divider();
           } else {
             return _buildRow(groceryItems[index ~/ 2]);
@@ -32,10 +50,7 @@ class MyApp extends StatelessWidget {
             appBarTheme: AppBarTheme(centerTitle: true)),
         home: Scaffold(
             appBar: AppBar(title: Text('Grocery Inventory')),
-            body: listGroceryItems())
-        // body: Center(
-        //     child: Text('This will contain the list of grocery items...'))),
-        );
+            body: listGroceryItems()));
   }
 }
 
